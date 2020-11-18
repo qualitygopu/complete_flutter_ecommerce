@@ -58,12 +58,8 @@ class UserProvider with ChangeNotifier {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((user) {
-        _userServices.createUser({
-          'name': name,
-          'email': email,
-          'uid': user.user.uid,
-          'stripeId': ''
-        });
+        _userServices.createUser(
+            {'name': name, 'email': email, 'uid': user.uid, 'stripeId': ''});
       });
       return true;
     } catch (e) {
@@ -122,25 +118,24 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> removeFromCart({CartItemModel cartItem})async{
+  Future<bool> removeFromCart({CartItemModel cartItem}) async {
     print("THE PRODUC IS: ${cartItem.toString()}");
 
-    try{
+    try {
       _userServices.removeFromCart(userId: _user.uid, cartItem: cartItem);
       return true;
-    }catch(e){
+    } catch (e) {
       print("THE ERROR ${e.toString()}");
       return false;
     }
-
   }
 
-  getOrders()async{
+  getOrders() async {
     orders = await _orderServices.getUserOrders(userId: _user.uid);
     notifyListeners();
   }
 
-  Future<void> reloadUserModel()async{
+  Future<void> reloadUserModel() async {
     _userModel = await _userServices.getUserById(user.uid);
     notifyListeners();
   }

@@ -49,14 +49,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              onTap: () async{
+              onTap: () async {
                 await userProvider.getOrders();
                 changeScreen(context, OrdersScreen());
               },
               leading: Icon(Icons.bookmark_border),
               title: CustomText(text: "My orders"),
             ),
-
             ListTile(
               onTap: () {
 //                userProvider.signOut();
@@ -77,12 +76,14 @@ class _HomePageState extends State<HomePage> {
                   top: 10,
                   right: 20,
                   child: Align(
-                      alignment: Alignment.topRight,
-                      child: GestureDetector(
-                          onTap: () {
-                            _key.currentState.openEndDrawer();
-                          },
-                          child: Icon(Icons.menu))),
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        _key.currentState.openEndDrawer();
+                      },
+                      child: Icon(Icons.menu),
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: 10,
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                   child: Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             changeScreen(context, CartScreen());
                           },
                           child: Icon(Icons.shopping_cart))),
@@ -99,12 +100,13 @@ class _HomePageState extends State<HomePage> {
                   top: 10,
                   right: 100,
                   child: Align(
-                      alignment: Alignment.topRight, child: GestureDetector(
-                      onTap: (){
-                        _key.currentState.showSnackBar(SnackBar(
-                            content: Text("User profile")));
-                      },
-                      child: Icon(Icons.person))),
+                      alignment: Alignment.topRight,
+                      child: GestureDetector(
+                          onTap: () {
+                            _key.currentState.showSnackBar(
+                                SnackBar(content: Text("User profile")));
+                          },
+                          child: Icon(Icons.person))),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     title: TextField(
                       textInputAction: TextInputAction.search,
-                      onSubmitted: (pattern)async{
+                      onSubmitted: (pattern) async {
                         await productProvider.search(productName: pattern);
                         changeScreen(context, ProductSearchScreen());
                       },
